@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>Select your prefered grade at test two:</h3>
+    <form>
+        <select id="grade">
+            <option value="1" selected="selected">Избери оценка</option>
+            <option value="2">2-ка ми е много</option>
+            <option value="3">Даай боже 3</option>
+            <option value="4">Н'еква шукар 4-ка</option>
+            <option value="5">Петичка на теста и тотото ! </option>
+            <option value="6">Праскам пълно 6 се правя джедай </option>
+
+        </select>
+    </form>
+    <h2> My prefered grade is:
+        <h1 id="showGrade"></h1>
+    </h2>
+</body>
+
+<script>
+
+    let formId = document.getElementById("grade")
+
+    formId.addEventListener('change', selectGrade)
+
+    function selectGrade() {
+
+        let value = formId.value
+        let text = formId.options[formId.value - 1].text
+        console.log(value, text);
+
+        let grade = text
+        let showGrade = document.getElementById("showGrade").textContent = grade
+
+    }
+
+
+</script>
+
+</html>
