@@ -1,0 +1,12 @@
+body {
+    border: 1px solid black;
+} 
+
+
+#monkey {
+    height: 182px;
+    width: 314px;
+    background-image: url(/monkey.jpg);
+    background-repeat: no-repeat;
+    position: absolute;
+}
