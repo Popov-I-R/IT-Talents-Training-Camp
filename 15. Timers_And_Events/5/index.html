@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: white
+        }
+    </style>
+</head>
+
+<body class="main">
+    <form id="form"> 
+        <input type="number" name="red" id="red" min="0" max="255" placeholder="red" title="red" >
+        <input type="number" name="green" id="green" min="0" max="255"  placeholder="green" title="green">
+        <input type="number" name="blue" id="blue" min="0" max="255" placeholder="blue" title="blue">
+        <button id="submit" type="submit">Change color</button>
+
+    </form>
+</body>
+
+<script>
+
+    document.getElementById("red").addEventListener('input', function () {
+        if (document.getElementById("red").value > 255 || document.getElementById("red").value < 0) {
+            document.getElementById("red").value = 0;
+        }
+    })
+    document.getElementById("blue").addEventListener('input', function () {
+        if (document.getElementById("blue").value > 255 || document.getElementById("blue").value < 0) {
+            document.getElementById("blue").value = 0;
+        }
+    })
+    document.getElementById("green").addEventListener('input', function () {
+        if (document.getElementById("green").value > 255 || document.getElementById("green").value < 0) {
+            document.getElementById("green").value = 0;
+        }
+    })
+
+let form = document.getElementById("form");
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let body = document.getElementsByTagName("body")[0];
+
+    changeColor()
+        function changeColor() {
+
+            let redInput = document.querySelector("#red").value;
+            let greenInput = document.querySelector("#green").value;
+            let blueInput = document.querySelector("#blue").value;
+            let test = body.style.backgroundColor = `rgb(${redInput},${greenInput},${blueInput})`;
+        }
+    })
+</script>
+</html>
