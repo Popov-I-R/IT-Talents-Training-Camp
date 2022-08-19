@@ -1,0 +1,20 @@
+.area {
+
+    width: 100%;
+    height: 600px;
+    
+}
+
+#form {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#error-name, #error-pass {
+    margin-top: 20px;
+    
+    color: red;
+}
