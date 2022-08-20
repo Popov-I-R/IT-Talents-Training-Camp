@@ -20,6 +20,39 @@ class User {
         }
         
     }
+
+
+
+
+
+
+
+    //22.1 dali e veche haresan (tova e za smqnata na butonite da se promenqt, ako e haresan)
+    isLiked(tupalka) {
+        return this.liked.indexOf(tupalka) !== -1
+    }
+    // 22.2 dali e veche blokiran (tova e za smqnata na butonite da se promenqt, ako e blokiran)
+    isBlocked(tupalka) {
+        return this.blocked.indexOf(tupalka) !== -1
+    }
+
+    //23 suzdavame unlike i unblock za butona da se promenq, ako e haresano ili blokirano
+    unlike(tupalka) {
+        
+         let idx = this.liked.indexOf(tupalka)
+        if(idx !== -1) {
+            this.liked.splice(idx,1)
+        }  
+    }
+        //23 suzdavame unlike i unblock za butona da se promenq, ako e haresano ili blokirano
+    unblock(tupalka) {
+        
+        let idx = this.blocked.indexOf(tupalka)
+        if(idx !== -1) {
+            this.blocked.splice(idx,1)
+         }  
+       }
+
     //11 функция за блокиране 
     block(tupalka){
         //11.1 Дали човека е лайкнат, правим променлива за по-добра четимост
