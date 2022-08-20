@@ -1,0 +1,212 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+/* Заглавие START  */
+
+
+.main-container {
+    box-sizing: border-box;
+    position: relative;
+    width: 1000px;
+    margin: auto;
+
+    
+    border: 1px solid black
+}
+
+.main-container .greeting {
+    padding: 10px;
+    display: block;
+    text-align: center;
+    border: 1px solid black;
+
+}
+
+/* Заглавие STOP  */
+
+/* INPUT START   */
+
+.create-list {
+    width: 100%;
+    height: auto;
+}
+
+.create-list .create-list-container {
+    padding: 10px;
+    
+}
+
+.input-product-container .input-items {
+  font-size: 18px;
+}
+
+
+.create-list .create-list-container .form {
+    width: 100%;
+    display: block;
+}
+
+#submit-product {
+  background-color: aquamarine;
+}
+
+#submit-product:hover {
+cursor: pointer;
+background-color: #8d72d8
+
+}
+
+#user-input {
+    text-align: center;
+    width: 100%;
+    border-color: blueviolet;
+}
+
+#user-input:focus {
+  background-color: rgb(203, 175, 230);
+  color: black
+}
+
+#user-input::placeholder {
+  color: black;
+}
+
+#user-input:focus::placeholder {
+  color: black
+}
+
+.input-items {
+    padding-top: 10px;
+    width: 100%;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+
+/* INPUT STOP   */
+
+
+/* LIST ITEMS START  */
+
+.show-list {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.show-list-title {
+    padding: 10px;
+    font-size: 80%;
+
+}
+
+.show-list-container {
+    width: 100%;
+}
+
+.show-list-container .products-list {
+padding: 10px;
+border: 1px solid black;
+}
+
+
+
+.show-list-container .products-list .my-product {
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+#my-product-name {
+    cursor: pointer;
+    width: 75%;
+    border: 1px solid gray;
+
+}
+
+.deleteButton {
+    width: 20%;
+    cursor: pointer;
+}
+
+:empty::before {
+  content: "Нямаш добавени продукти";
+  color: rgb(0, 0, 0);
+}

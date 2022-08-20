@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="main.js"></script>
+</head>
+
+<body>
+    <section class="main-container">
+        <div class="greeting">
+            <h2>Здрасти, какво ще пазаруваш днес?</h2>
+            <span>Днес аз ще помня вместо теб. Въведи името на продукта в полето под мен :) </span>
+        </div>
+
+        <section class="create-list">
+            <div class="create-list-container">
+                <form action="/" class="form" id="form">
+                    <div class="input-product-container input-items">
+                        <!-- <label for="product"></label> -->
+                        <input class="user-input input-items" type="text" name="product" id="user-input" placeholder="Въведи името на продукта:" title="Цъкни тук :)">
+                    </div>
+                    <div class="submit-button-container input-items">
+                        <button class="input-items" type="submit" id="submit-product"><h3>Добави в списъка с продукти</h3></button>
+                    </div>
+                    
+                </form>
+            </div>
+        </section>
+        <section class="show-list">
+            <div class="show-list-title">
+                <h2>Добавени продукти: </h2>
+            </div>
+            <div class="show-list-container">
+                <div class="products-list" id="products-list"></div>
+            </div>
+        </section>
+    </section>
+
+</body>
+
+</html>
