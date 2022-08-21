@@ -27,4 +27,12 @@ class User  {
             this.blocked.push(match)
         }
     }
+
+    unlike(match) {
+
+    }
+
+    unblock(match) {
+        
+    }
 }

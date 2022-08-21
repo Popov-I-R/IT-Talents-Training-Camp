@@ -9,4 +9,21 @@ class MainManager {
             this.matches.push(match) 
         }
     }
+
+    filter(text) {
+        // Да върнем всичко, което съдържа в името си този текст 
+        let filtered = []
+        for (let i = 0; i < this.matches.length; i++) {
+            if (this.matches[i].firstName.includes(text)|| 
+                 this.matches[i].lastName.includes(text)|| 
+                 this.matches[i].email.includes(text) )  {
+                filtered.push(this.matches[i])
+            }
+            
+        }
+        return filtered;
+    }
+
+    
+    
 }

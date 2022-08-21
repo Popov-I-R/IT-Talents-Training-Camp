@@ -2,6 +2,8 @@
     let homePage = document.getElementById("homePage")
     let likedPage = document.getElementById("likedPage")
     let blackListPage = document.getElementById("blackListPage")
+    let homeResults = document.getElementById("results")
+    
 
 
 // create user 
@@ -24,10 +26,9 @@
         manager.add(match) // add е функция, която сме си написали в Main Manager файлът.
         
     }
-    console.log(manager.matches);
 
 
-printOnScreen(manager.matches, homePage) // 2рия аргумент е homePage, защото сега ще принтираме в homepage, но идеята е после да преизползваме функцията, като просто променим това "къде ще принтира" - 2рия аргумент
+printOnScreen(manager.matches, homeResults) // 2рия аргумент е homePage, защото сега ще принтираме в homepage, но идеята е после да преизползваме функцията, като просто променим това "къде ще принтира" - 2рия аргумент
 
 function printOnScreen(matches, container) { // това са параметрите, според зависи какво подаваме от аргументите, контейнера се мени
    container.innerHTML = ""
@@ -88,10 +89,10 @@ function printOnScreen(matches, container) { // това са параметри
         
         switch (hash) {
             case "homePage":
-                homePage.style.display= "flex";
+                homePage.style.display= "block";
                 likedPage.style.display= "none";
                 blackListPage.style.display= "none"
-                printOnScreen(manager.matches, homePage)
+                printOnScreen(manager.matches, homeResults)
                 break;
             case "likedPage":
                 homePage.style.display="none";
@@ -107,10 +108,10 @@ function printOnScreen(matches, container) { // това са параметри
                 break
         
             default:
-                homePage.style.display="flex";
+                homePage.style.display="block";
                 likedPage.style.display="none";
                 blackListPage.style.display="none"
-                printOnScreen(manager.matches, homePage)
+                printOnScreen(manager.matches, homeResults)
                 break;
         }
     }
@@ -118,6 +119,20 @@ function printOnScreen(matches, container) { // това са параметри
     window.addEventListener("hashchange", onHashChange)
     window.addEventListener("load", onHashChange)
     
-    
+    let search = document.getElementById("search")
+    search.addEventListener("keyup", function (event) {
+        //get the value from the input 
+        let text = event.target.value // ravnostoino e na tova da vzemem stoinostta na poleto
+         
+        let filtered = manager.filter(text)
+        
+        // check all that have this in their name 
+
+        // print 
+        printOnScreen(filtered,homeResults)
+ 
+    })
+
+
 })()
 
