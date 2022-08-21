@@ -13,10 +13,9 @@ class User  {
         if (getIndex !== -1 ) { 
             this.blocked.splice(getIndex, 1)
         }
-        if (this.liked.indexOf(match) !== -1) { // С този иф се подсигуряваме, че ще добавяме само по веднъж в масива. 
+        if (this.liked.indexOf(match) === -1) { // С този иф се подсигуряваме, че ще добавяме само по веднъж в масива. 
             this.liked.push(match) 
-        }
-        
+        }    
     }
 
     block(match) { // Съответно, ако го има в харесваните - да го махнем от там и да го сложим в блокирани
@@ -24,9 +23,8 @@ class User  {
         if (getIndex !== -1 ) { // ако е различно от -1, значи имаме индекс(защого горе ползваме indexof), така че го сплайсваме 
             this.liked.splice(getIndex, 1)
         }
-        if (this.blocked.indexOf(match) !== -1) { // С този иф се подсигуряваме, че ще добавяме само по веднъж в масива. 
+        if (this.blocked.indexOf(match) === -1) { // С този иф се подсигуряваме, че ще добавяме само по веднъж в масива. 
             this.blocked.push(match)
         }
     }
-
 }

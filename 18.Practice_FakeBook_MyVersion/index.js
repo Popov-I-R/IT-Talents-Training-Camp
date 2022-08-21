@@ -28,7 +28,9 @@
 
 
 printOnScreen(manager.matches, homePage) // 2рия аргумент е homePage, защото сега ще принтираме в homepage, но идеята е после да преизползваме функцията, като просто променим това "къде ще принтира" - 2рия аргумент
+
 function printOnScreen(matches, container) { // това са параметрите, според зависи какво подаваме от аргументите, контейнера се мени
+   container.innerHTML = ""
     //Итерирай през всеки обект
     for (let i = 0; i < matches.length; i++) { // За да направи едно и също за всеки обект 
         let match = matches[i] //---за да не пиша всеки път matches[i] по-надолу
@@ -45,16 +47,28 @@ function printOnScreen(matches, container) { // това са параметри
          //създай h4 да опитам да сложа и хобитата в картичките това е за името 
          let h4 = document.createElement("h4");
          if (match.hobbies !== undefined) {
-            h4.innerHTML = match.hobbies
+            h4.innerHTML =` ${match.hobbies}`
          } else {
             h4.innerHTML = "Няма хобита."
          }
 
          let likeButton = document.createElement("button")
          likeButton.innerText = "Like"
+         likeButton.addEventListener("click", function () {
+            // on click trqbva da go pushvam v liked 
+            user.like(match) // Ползва функцията like от класът User
+            onHashChange()// Преизчертава екрана, за да изчезват, като натиснем бутона 
+            
+         })
 
          let blockButton = document.createElement("button")
          blockButton.innerText = "block"
+         blockButton.addEventListener("click", function () {
+            // on click trqbva da go pushvam v liked 
+            user.block(match) // Ползва функцията block от класът User 
+            onHashChange() // Преизчертава екрана, за да изчезват, като натиснем бутона 
+            
+         })
          
          div.append(img,h3,h4,likeButton,blockButton)
          container.append(div) // container tuk e променлива, чиито контейнер се променя според зависи какво сме бутали, като аргумент във функцията ни принт.
@@ -77,22 +91,26 @@ function printOnScreen(matches, container) { // това са параметри
                 homePage.style.display= "flex";
                 likedPage.style.display= "none";
                 blackListPage.style.display= "none"
+                printOnScreen(manager.matches, homePage)
                 break;
             case "likedPage":
                 homePage.style.display="none";
                 likedPage.style.display="flex";
                 blackListPage.style.display="none"
+                printOnScreen(user.liked, likedPage)
                 break;
             case "blackListPage":
                 homePage.style.display="none";
                 likedPage.style.display="none";
                 blackListPage.style.display="flex"
+                printOnScreen(user.blocked, blackListPage)
                 break
         
             default:
                 homePage.style.display="flex";
                 likedPage.style.display="none";
                 blackListPage.style.display="none"
+                printOnScreen(manager.matches, homePage)
                 break;
         }
     }
