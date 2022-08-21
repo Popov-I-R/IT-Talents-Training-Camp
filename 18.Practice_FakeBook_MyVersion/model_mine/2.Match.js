@@ -8,6 +8,7 @@ class Match {
         this.picture = picture;
         this.email = email;
         this.hobbies = hobbies;
+        
     }
     
 }
