@@ -3,6 +3,7 @@
     let likedPage = document.getElementById("likedPage")
     let blackListPage = document.getElementById("blackListPage")
     let homeResults = document.getElementById("results")
+    let select = document.getElementById("select")
     
 
 
@@ -132,6 +133,54 @@ function printOnScreen(matches, container) { // това са параметри
         printOnScreen(filtered,homeResults)
  
     })
+
+    // test za select by hobbies start 
+
+    function getHobbies() {
+       let hobbies = [] 
+        
+       for (let i = 0; i < manager.matches.length; i++) {
+           let match = manager.matches[i]
+           // Ako ima hobi (zashtoto ne vs imat)
+           if (match.hobbies !== undefined) {
+                // split,zashtoto nqkoi imat edno hobi,drugi poveche
+               let arrOfHobbies = match.hobbies.split(",");
+                //za vsqko edno hobi po otdelno da se pushne, ako go nqma - trima e za da nqma spaces
+               for (let i = 0; i < arrOfHobbies.length; i++) {
+                   let hobby = arrOfHobbies[i].trim()
+                   if (!hobbies.includes(hobby)) {
+                    hobbies.push(hobby)
+                   }
+                   
+               }
+           }
+       }
+
+       for (let j = 0; j < hobbies.length; j++) {
+           let getHobby = hobbies[j]
+              let option =  document.createElement("option")
+              option.setAttribute(`id`,`hobby${j}`);
+              option.innerText = `${getHobby}`
+              select.appendChild(option) 
+       }
+    }
+    getHobbies()
+
+    select.addEventListener("change", function (event) {
+        let selectedHobby = event.target.value
+        if (selectedHobby === "Избери по хоби") {
+            printOnScreen(manager.matches, homeResults)
+        } else {
+            let filteredByHobby = manager.select(selectedHobby)
+            printOnScreen(filteredByHobby,homeResults)
+        }
+
+
+    })
+
+
+
+    // test za select by hobbies end 
 
 
 })()

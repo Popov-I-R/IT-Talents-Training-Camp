@@ -24,6 +24,19 @@ class MainManager {
         return filtered;
     }
 
+    select(hobby) {
+        let selected = []
+        for (let i = 0; i < this.matches.length; i++) {
+            if (this.matches[i].hobbies !== undefined) {
+                if (this.matches[i].hobbies.includes(hobby))  {
+                    selected.push(this.matches[i])
+                }
+            }
+            
+        }
+        return selected;
+    }
+    
     
     
 }
