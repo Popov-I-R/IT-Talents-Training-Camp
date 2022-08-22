@@ -49,6 +49,7 @@
                 <li><a href="#homePage">Home Page</a></li>
                 <li><a href="#likedPage">My Likes</a></li>
                 <li><a href="#blackListPage">My Blocked users</a></li>
+                <li><a href="#myProfilePage">Моят профил</a></li>
                 <input type="text" name="" id="search" placeholder="Search By Name">
                 <select name="" id="select">
                     <option>Избери по хоби</option>
@@ -76,8 +77,38 @@
         </div>
         <div id="likedPage"> This is your liked page</div>
         <div id="blackListPage"> This is your blackListPage</div>
-        <div id="myProfile">
-            
+        <div id="myProfilePage"> This is your profile page </br>
+            <h3>Моят протил</h3>
+            <form id="form" action="/" method="get">
+                <div>
+                    <label for="firstN">First Name</label>
+                    <input id="firstN" name="name" type="text" value="Петър">
+                    <div id="error-name">
+                    </div>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="name" type="password" value="Тошев">
+                    <div id="error-pass">
+                    </div>
+                </div>
+                <div>
+                    <label for="picture">Профилна снимка</label> </br>
+                    <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="" id="profile-pic"></br>
+                    <h4>Сменете профилната си снимка</h4>
+                    <input type="file" name="" id="upload-picture">
+                    
+                    <div id="error-pass">
+                    </div>
+                </div>
+                    <button id="submitButton" type="submit">Submit</button>
+            </form>
+            <input type="file" accept="image/*" id="uploadImage"><br>
+            <button onclick="myFunction()">Submit Picture</button><br>
+            <img id="imagePreview">
+
+
+
         </div>
 
 
@@ -92,6 +123,7 @@
 <script src="FakeUsers.js"></script>
 <script src="/model_mine/MainManager.js"></script>
 <script src="/model_mine/User.js"></script>
+<script src="/myProfile.js"></script>
 <script src="index.js"></script>
 
 

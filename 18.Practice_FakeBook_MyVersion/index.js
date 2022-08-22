@@ -4,6 +4,7 @@
     let blackListPage = document.getElementById("blackListPage")
     let homeResults = document.getElementById("results")
     let select = document.getElementById("select")
+    let myProfilePage = document.getElementById("myProfilePage")
     
 
 
@@ -82,36 +83,46 @@ function printOnScreen(matches, container) { // това са параметри
     }
        
 }
-
-
     
     let onHashChange = function () {
         let hash = location.hash.slice(1) 
+        
         
         switch (hash) {
             case "homePage":
                 homePage.style.display= "block";
                 likedPage.style.display= "none";
                 blackListPage.style.display= "none"
+                myProfilePage.style.display="none"
                 printOnScreen(manager.matches, homeResults)
                 break;
             case "likedPage":
                 homePage.style.display="none";
                 likedPage.style.display="flex";
-                blackListPage.style.display="none"
+                blackListPage.style.display="none";
+                myProfilePage.style.display="none";
                 printOnScreen(user.liked, likedPage)
                 break;
             case "blackListPage":
                 homePage.style.display="none";
                 likedPage.style.display="none";
-                blackListPage.style.display="flex"
+                blackListPage.style.display="flex";
+                myProfilePage.style.display="none";
                 printOnScreen(user.blocked, blackListPage)
-                break
+                break;
+            case "myProfilePage":
+                homePage.style.display="none";
+                likedPage.style.display="none";
+                blackListPage.style.display="none";
+                myProfilePage.style.display="block";
+                break;
+
         
             default:
                 homePage.style.display="block";
                 likedPage.style.display="none";
                 blackListPage.style.display="none"
+                myProfilePage.style.display="none";
                 printOnScreen(manager.matches, homeResults)
                 break;
         }
@@ -124,11 +135,8 @@ function printOnScreen(matches, container) { // това са параметри
     search.addEventListener("keyup", function (event) {
         //get the value from the input 
         let text = event.target.value // ravnostoino e na tova da vzemem stoinostta na poleto
-         
         let filtered = manager.filter(text)
-        
-        // check all that have this in their name 
-
+        // check all that have this in their name
         // print 
         printOnScreen(filtered,homeResults)
  
@@ -151,11 +159,10 @@ function printOnScreen(matches, container) { // това са параметри
                    if (!hobbies.includes(hobby)) {
                     hobbies.push(hobby)
                    }
-                   
                }
            }
        }
-
+       // Obikoli  hobbies i suzdai options 
        for (let j = 0; j < hobbies.length; j++) {
            let getHobby = hobbies[j]
               let option =  document.createElement("option")
@@ -178,10 +185,26 @@ function printOnScreen(matches, container) { // това са параметри
 
     })
 
-
-
     // test za select by hobbies end 
+
+    // Test/ Profile START
+    
+    // printProfile(profile, container)
+    // function printProfile(profile,container) {
+    //     innerHTML = ""
+
+
+    // }
+
+
+
+
+    // TEST/ PROFILE END 
+
 
 
 })()
+
+
+
 

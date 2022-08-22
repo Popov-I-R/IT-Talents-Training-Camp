@@ -13,6 +13,7 @@ class MainManager {
     filter(text) {
         // Да върнем всичко, което съдържа в името си този текст 
         let filtered = []
+        text = text.toLowerCase() // За да може да работи търсачката и с главни и с малки букви 
         for (let i = 0; i < this.matches.length; i++) {
             if (this.matches[i].firstName.includes(text)|| 
                  this.matches[i].lastName.includes(text)|| 

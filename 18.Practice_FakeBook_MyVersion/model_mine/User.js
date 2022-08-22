@@ -29,7 +29,9 @@ class User  {
     }
 
     unlike(match) {
-
+        if (this.liked.includes(match)) {
+            
+        }
     }
 
     unblock(match) {

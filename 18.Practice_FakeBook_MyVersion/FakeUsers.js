@@ -6,7 +6,7 @@ const fakeUsers = [
     email: "heinz-georg.fiedler@example.com",
     title: "mr",
     picture: "https://randomuser.me/api/portraits/men/81.jpg",
-    hobbies: "riba,koli, sport"
+    hobbies: "riba, koli, sport"
   },
   {
     id: "0P6E1d4nr0L1ntW8cjGU",
@@ -24,6 +24,7 @@ const fakeUsers = [
     firstName: "Vetle",
     picture: "https://randomuser.me/api/portraits/men/97.jpg",
     email: "vetle.aasland@example.com",
+    hobbies: "reading books"
   },
   {
     id: "1OuR3CWOEsfISTpFxsG7",
@@ -32,6 +33,7 @@ const fakeUsers = [
     email: "dylan.vasquez@example.com",
     title: "mr",
     firstName: "Dylan",
+    hobbies: "drinking"
   },
   {
     id: "1pRsh5nXDIH3pjEOZ17A",
@@ -40,6 +42,7 @@ const fakeUsers = [
     firstName: "Margarita",
     email: "margarita.vicente@example.com",
     picture: "https://randomuser.me/api/portraits/women/5.jpg",
+    hobbies: "boi"
   },
   {
     id: "3JAf8R85oIlxXd58Piqk",
@@ -48,6 +51,7 @@ const fakeUsers = [
     firstName: "Joey",
     lastName: "Oliver",
     picture: "https://randomuser.me/api/portraits/men/61.jpg",
+    hobbies: "drinking"
   },
   {
     id: "5aZRSdkcBOM6j3lkWEoP",
