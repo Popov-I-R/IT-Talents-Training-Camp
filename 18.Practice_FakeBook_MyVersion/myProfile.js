@@ -37,28 +37,11 @@ form.addEventListener("submit", (e) => {
         errorPass.innerText = messagesPass.join("\n")
     }
 
-    if (uploadPicture.value !== "") {
-        console.log(`xmm`);
-        profilePic.setAttribute("src",`${uploadPicture.value}`)
-    }
+
 
     
 })
 
-uploadPicture.addEventListener("change", onFileSelected(event))
-function onFileSelected(event) {
-    var selectedFile = event.target.files[0];
-    var reader = new FileReader();
-  
-    var imgtag = document.getElementById("upload-picture");
-    imgtag.title = selectedFile.name;
-  
-    reader.onload = function(event) {
-      imgtag.src = event.target.result;
-    };
-  
-    reader.readAsDataURL(selectedFile);
-  }
 
 
   function myFunction() {

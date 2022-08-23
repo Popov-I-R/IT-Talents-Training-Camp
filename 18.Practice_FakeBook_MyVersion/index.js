@@ -56,22 +56,46 @@ function printOnScreen(matches, container) { // това са параметри
          }
 
          let likeButton = document.createElement("button")
-         likeButton.innerText = "Like"
-         likeButton.addEventListener("click", function () {
-            // on click trqbva da go pushvam v liked 
-            user.like(match) // Ползва функцията like от класът User
-            onHashChange()// Преизчертава екрана, за да изчезват, като натиснем бутона 
+         if (user.isLiked(match)) {
+            likeButton.innerText = "Unlike"
+            likeButton.addEventListener("click", function () {
+               // on click trqbva da go pushvam v liked 
+               user.unlike(match) // Ползва функцията like от класът User
+               onHashChange()// Преизчертава екрана, за да изчезват, като натиснем бутона 
+            })
+         } else {
+            likeButton.innerText = "Like"
+            likeButton.addEventListener("click", function () {
+               // on click trqbva da go pushvam v liked 
+               user.like(match) // Ползва функцията like от класът User
+               onHashChange()// Преизчертава екрана, за да изчезват, като натиснем бутона 
+            })
+         }
+
+
+           
             
-         })
+       
 
          let blockButton = document.createElement("button")
-         blockButton.innerText = "block"
-         blockButton.addEventListener("click", function () {
-            // on click trqbva da go pushvam v liked 
-            user.block(match) // Ползва функцията block от класът User 
-            onHashChange() // Преизчертава екрана, за да изчезват, като натиснем бутона 
-            
-         })
+         if (user.isBlocked(match)) {
+            blockButton.innerText = "unblock"
+            blockButton.addEventListener("click", function () {
+               // on click trqbva da go pushvam v liked 
+               user.unblock(match) // Ползва функцията block от класът User 
+               onHashChange() // Преизчертава екрана, за да изчезват, като натиснем бутона 
+               
+            })
+         } else {
+            blockButton.innerText = "block"
+            blockButton.addEventListener("click", function () {
+               // on click trqbva da go pushvam v liked 
+               user.block(match) // Ползва функцията block от класът User 
+               onHashChange() // Преизчертава екрана, за да изчезват, като натиснем бутона 
+               
+            })
+         }
+
          
          div.append(img,h3,h4,likeButton,blockButton)
          container.append(div) // container tuk e променлива, чиито контейнер се променя според зависи какво сме бутали, като аргумент във функцията ни принт.
@@ -200,6 +224,11 @@ function printOnScreen(matches, container) { // това са параметри
 
 
     // TEST/ PROFILE END 
+
+
+    // TEST CREATE USER START 
+
+    // TEST CREATE USER END 
 
 
 

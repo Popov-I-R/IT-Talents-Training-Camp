@@ -78,7 +78,7 @@
         <div id="likedPage"> This is your liked page</div>
         <div id="blackListPage"> This is your blackListPage</div>
         <div id="myProfilePage"> This is your profile page </br>
-            <h3>Моят протил</h3>
+            <h3>Моят профил</h3>
             <form id="form" action="/" method="get">
                 <div>
                     <label for="firstN">First Name</label>
@@ -93,19 +93,21 @@
                     </div>
                 </div>
                 <div>
-                    <label for="picture">Профилна снимка</label> </br>
-                    <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="" id="profile-pic"></br>
-                    <h4>Сменете профилната си снимка</h4>
-                    <input type="file" name="" id="upload-picture">
                     
+                    
+                    <h4>Сменете профилната си снимка</h4>
+                    <!-- img start  -->
+                    <input type="file" accept="image/*" id="uploadImage"><br>
+                    <button onclick="myFunction()">Submit Picture</button><br>
+                    <!-- долу на img в src ще ни е дефолтен image -->
+                    <img id="imagePreview" src="https://randomuser.me/api/portraits/men/81.jpg"> 
+                    <!-- img end  -->
                     <div id="error-pass">
                     </div>
                 </div>
                     <button id="submitButton" type="submit">Submit</button>
             </form>
-            <input type="file" accept="image/*" id="uploadImage"><br>
-            <button onclick="myFunction()">Submit Picture</button><br>
-            <img id="imagePreview">
+
 
 
 

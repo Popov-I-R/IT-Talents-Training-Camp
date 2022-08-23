@@ -5,6 +5,7 @@ class User  {
     constructor() {
         this.liked = [] // Първо създаваме двата масива за харесани и за блокирани 
         this.blocked = [] 
+        
     }
     // Тези неща отговарят за бутоните  - like & block 
     like(match) { 
@@ -28,13 +29,29 @@ class User  {
         }
     }
 
+
+    isLiked(match) {
+        return this.liked.indexOf(match) !== -1
+    }
+
+    isBlocked(match) {
+        return this.blocked.indexOf(match) !== -1
+    }
+
+
     unlike(match) {
-        if (this.liked.includes(match)) {
-            
+        let getIndex = this.liked.indexOf(match)
+        if (getIndex !== -1) {
+            this.liked.splice(match,1)
         }
+         
+        
     }
 
     unblock(match) {
-        
+        let getIndex = this.blocked.indexOf(match)
+        if (getIndex !== -1) {
+            this.blocked.splice(match,1)
+        }
     }
 }
