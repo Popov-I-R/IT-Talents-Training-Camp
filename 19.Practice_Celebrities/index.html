@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrities</title>
+
+    <style>
+        nav>ul {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        nav>ul>li {
+           list-style: none; 
+           flex-basis: 30%;
+           
+        }
+        nav>ul>li>a {
+            text-decoration: none;
+        }
+
+
+
+
+        #results {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap; /* za 5 ka red roditel*/
+        }
+
+        
+
+        .card {
+            /*   */
+            margin: 5px;
+            border: 1px solid black;
+            flex-basis: 20%; /* za 5 na red dete*/
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#homePage">Home Page</a></li>
+                <li><a href="#likedPage">My Likes</a></li>
+                <li><a href="#blackListPage">My Blocked users</a></li>
+                <li><a href="#myProfilePage">Моят профил</a></li>
+                <li><a href="#createRecipePage">Създай звезда</a></li>
+                <input type="text" name="" id="search" placeholder="Search By Name">
+                <select name="" id="select">
+                    <option>Сортирай по пол</option>
+                </select>
+                <select name="" id="selectByAge">
+                    <option>Сортирай по години</option>
+                </select>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="homePage">
+            <div id="filter">
+                
+            </div>
+            <div id="results">
+                <!-- <div class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWVufGVufDB8fDB8fA%3D%3D&amp;w=1000&amp;q=80"
+                        alt="tupalka" style="height: 220px;">
+                    <h3>Georgi Hristov</h3>
+                    <h4>Hobbies</h4>
+                    <button>Like</button>
+                    <button>Block</button>
+                </div> -->
+
+            </div>
+        </div>
+        <div id="likedPage"> This is your liked page</div>
+        <div id="blackListPage"> This is your blackListPage</div>
+        <div id="myProfilePage"> This is your profile page </br>
+            <h3>Моят профил</h3>
+            <form id="form" action="/" method="get">
+                <div>
+                    <label for="firstN">First Name</label>
+                    <input id="firstN" name="name" type="text" value="Петър">
+                    <div id="error-name">
+                    </div>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="name" type="password" value="Тошев">
+                    <div id="error-pass">
+                    </div>
+                </div>
+                <div>
+                    
+                    
+                    <h4>Сменете профилната си снимка</h4>
+                    <!-- img start  -->
+                    <input type="file" accept="image/*" id="uploadImage"><br>
+                    <button onclick="myFunction()">Submit Picture</button><br>
+                    <!-- долу на img в src ще ни е дефолтен image -->
+                    <img id="imagePreview" src="https://randomuser.me/api/portraits/men/81.jpg"> 
+                    <!-- img end  -->
+                    <div id="error-pass">
+                    </div>
+                </div>
+                    <button id="submitButton" type="submit">Submit</button>
+            </form>
+
+
+
+
+        </div>
+        <div id="createRecipePage">
+
+            <div class="create-recipe-container">
+                <form id="create-recipe-form">
+                    <input required type="text" name="id" placeholder="id">
+                    <input required type="text" name="firstName" placeholder="firstName">
+                    <input required type="text" name="lastName" placeholder="lastName">
+                    <input required type="number" name="age" placeholder="age">
+                    <textarea required name="gender" placeholder="gender"></textarea>
+                    <input type="text" name="image-source" placeholder="image src" required>
+                    <input type="number" name="price" placeholder="price">
+                    <button id="create-recipe-submit" type="submit" disabled>Create</button>
+                </form>
+            </div>
+
+
+        </div>
+
+
+
+
+    </main>
+    <footer>
+
+    </footer>
+</body>
+<script src="/model_mine/2.Match.js"></script>
+<script src="fakeUsers.js"></script>
+<script src="/model_mine/MainManager.js"></script>
+<script src="/model_mine/User.js"></script>
+<script src="/myProfile.js"></script>
+<script src="index.js"></script>
+
+
+
+
+
+</html>
