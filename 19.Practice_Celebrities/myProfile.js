@@ -35,11 +35,7 @@ form.addEventListener("submit", (e) => {
     if (messagesPass.length > 0) {
         e.preventDefault()
         errorPass.innerText = messagesPass.join("\n")
-    }
-
-
-
-    
+    }  
 })
 
 

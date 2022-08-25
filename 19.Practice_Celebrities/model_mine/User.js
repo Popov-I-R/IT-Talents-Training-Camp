@@ -3,6 +3,8 @@ class User  {
 
 
     constructor() {
+        this.name = ""
+        this.age = ""
         this.liked = [] // Първо създаваме двата масива за харесани и за блокирани 
         this.blocked = [] 
     }
@@ -57,4 +59,8 @@ class User  {
             this.blocked.splice(match,1)
         }
     }
-}
+
+    
+
+    }
+

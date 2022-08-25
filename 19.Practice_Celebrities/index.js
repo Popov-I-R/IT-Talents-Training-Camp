@@ -1,4 +1,4 @@
-(function () {
+
     let homePage = document.getElementById("homePage")
     let likedPage = document.getElementById("likedPage")
     let blackListPage = document.getElementById("blackListPage")
@@ -24,7 +24,8 @@
             obj.age,
             obj.gender,
             obj.image,
-            obj.price 
+            obj.price, 
+            obj.likes
         )
         
         manager.add(match) // add е функция, която сме си написали в Main Manager файлът.
@@ -49,7 +50,12 @@ function printOnScreen(matches, container) { // това са параметри
          //създай ИМЕ
          let h3 = document.createElement("h3");
          h3.innerHTML = match.firstName + " " + match.lastName
-         
+         // създай цена 
+         let h5 = document.createElement("h5");
+         h5.innerHTML = ` Цена: ${match.price}`
+
+         let h5years = document.createElement("h5")
+        h5years.innerHTML = `Години: ${match.age}`         
 
          let likeButton = document.createElement("button")
          if (user.isLiked(match)) {
@@ -89,8 +95,25 @@ function printOnScreen(matches, container) { // това са параметри
             })
          }
 
+         // Бутон за брояч на харесвания START 
+
          
-         div.append(img,h3,likeButton,blockButton)
+         let likeCountButton = document.createElement("button");
+         
+      
+         likeCountButton.innerText = match.likes
+         
+         likeCountButton.addEventListener("click", function myFunction() {
+            manager.edit(match)
+            onHashChange()
+         
+          })
+
+
+        // Бутон за брояч на харесвания END 
+
+         
+         div.append(img,h3,h5,h5years,likeButton,blockButton,likeCountButton)
          container.append(div) // container tuk e променлива, чиито контейнер се променя според зависи какво сме бутали, като аргумент във функцията ни принт.
          
          //създай 2 бутона 
@@ -232,11 +255,12 @@ function printOnScreen(matches, container) { // това са параметри
                    if (!differentAges.includes(match.age)) {
                     differentAges.push(match.age)
                    }
-               
+                   
            }
        }
        // Obikoli  hobbies i suzdai options 
        for (let j = 0; j < differentAges.length; j++) {
+            differentAges.sort((a, b) => a - b)
            let optionAge = differentAges[j]
               let option =  document.createElement("option")
               option.setAttribute(`id`,`hobby${j}`);
@@ -321,7 +345,7 @@ function printOnScreen(matches, container) { // това са параметри
 
 
 
-})()
+
 
 
 
