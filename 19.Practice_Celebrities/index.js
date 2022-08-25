@@ -7,8 +7,9 @@
     let selectAge = document.getElementById("selectByAge")
     let myProfilePage = document.getElementById("myProfilePage")
     let createRecipePage = document.getElementById("createRecipePage")
+    let errorPage = document.getElementById("errorPage")
     
-
+    
 
 // create user 
     let user = new User();
@@ -103,7 +104,7 @@ function printOnScreen(matches, container) { // това са параметри
       
          likeCountButton.innerText = match.likes
          
-         likeCountButton.addEventListener("click", function myFunction() {
+         likeCountButton.addEventListener("click", function () {
             manager.edit(match)
             onHashChange()
          
@@ -126,7 +127,17 @@ function printOnScreen(matches, container) { // това са параметри
     
     let onHashChange = function () {
         let hash = location.hash.slice(1) 
-        
+        if (hash !== "homePage" && hash !== "likedPage" &&
+             hash !== "blackListPage" && hash !== "myProfilePage" &&
+             hash !== "createRecipePage" ) {
+                homePage.style.display= "none";
+                likedPage.style.display= "none";
+                blackListPage.style.display= "none"
+                myProfilePage.style.display="none"
+                createRecipePage.style.display="none";
+                errorPage.style.display="block"
+        } else {
+            
         
         switch (hash) {
             case "homePage":
@@ -135,6 +146,7 @@ function printOnScreen(matches, container) { // това са параметри
                 blackListPage.style.display= "none"
                 myProfilePage.style.display="none"
                 createRecipePage.style.display="none";
+                errorPage.style.display="none"
                 printOnScreen(manager.matches, homeResults)
                 break;
             case "likedPage":
@@ -143,6 +155,7 @@ function printOnScreen(matches, container) { // това са параметри
                 blackListPage.style.display="none";
                 myProfilePage.style.display="none";
                 createRecipePage.style.display="none";
+                errorPage.style.display="none"
                 printOnScreen(user.liked, likedPage)
                 break;
             case "blackListPage":
@@ -151,6 +164,7 @@ function printOnScreen(matches, container) { // това са параметри
                 blackListPage.style.display="flex";
                 myProfilePage.style.display="none";
                 createRecipePage.style.display="none";
+                errorPage.style.display="none"
                 printOnScreen(user.blocked, blackListPage)
                 break;
             case "myProfilePage":
@@ -159,6 +173,9 @@ function printOnScreen(matches, container) { // това са параметри
                 blackListPage.style.display="none";
                 myProfilePage.style.display="block";
                 createRecipePage.style.display="none";
+                errorPage.style.display="none"
+                getCountLikes()
+
                 break;
             case "createRecipePage":
                 homePage.style.display="none";
@@ -166,6 +183,7 @@ function printOnScreen(matches, container) { // това са параметри
                 blackListPage.style.display="none";
                 myProfilePage.style.display="none";
                 createRecipePage.style.display="block";
+                errorPage.style.display="none"
                 break;
 
         
@@ -176,8 +194,11 @@ function printOnScreen(matches, container) { // това са параметри
                 myProfilePage.style.display="none";
                 createRecipePage.style.display="none";
                 printOnScreen(manager.matches, homeResults)
+                errorPage.style.display="none"
                 break;
         }
+        }
+        
     }
     
     window.addEventListener("hashchange", onHashChange)
@@ -321,17 +342,24 @@ function printOnScreen(matches, container) { // това са параметри
 
 
 
-
-
-
     // Test/ Profile START
+   
+    function getCountLikes() {
+        
     
-    // printProfile(profile, container)
-    // function printProfile(profile,container) {
-    //     innerHTML = ""
+        var likedUsers = document.getElementById("likedUsersCounter")
+        var test = user.countLiked()
+        
+        likedUsers.innerHTML = `I liked ${test} users` 
+    }
+
+    myProfilePage.addEventListener("click", getCountLikes)
 
 
-    // }
+
+   
+
+    
 
 
 

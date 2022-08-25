@@ -6,10 +6,22 @@ const errorPass = document.getElementById("error-pass")
 let uploadPicture = document.getElementById("upload-picture")
 let profilePic = document.getElementById("profile-pic")
 
+
+
+let nameValue = document.getElementById("nameValue")
+// let likedUsers = document.getElementById("likedUsersCounter")
+
+
+
 form.addEventListener("submit", (e) => {
     e.preventDefault()
     let messagesName = []
     let messagesPass = []
+
+    let name = firstN.value
+    let age = password.value
+    user.updateProfile(name, age)
+    nameValue.innerText = `${user.name}`
 
     if (firstN.value === "" || firstN.value == null) {
         messagesName.push("Name is required")
@@ -36,11 +48,12 @@ form.addEventListener("submit", (e) => {
         e.preventDefault()
         errorPass.innerText = messagesPass.join("\n")
     }  
+
 })
 
 
 
-  function myFunction() {
+  function updateProfilePic() {
     const file = document.querySelector('#uploadImage').files[0];
     var reader = new FileReader();
     reader.readAsDataURL(file);
@@ -51,3 +64,7 @@ form.addEventListener("submit", (e) => {
 }
 if(localStorage.getItem("image"))
     document.getElementById("imagePreview").setAttribute("src", localStorage.getItem("image"))
+
+
+
+   

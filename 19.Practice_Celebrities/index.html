@@ -86,31 +86,33 @@
             <form id="form" action="/" method="get">
                 <div>
                     <label for="firstN">First Name</label>
-                    <input id="firstN" name="name" type="text" value="Петър">
+                    <span id="nameValue"></span>
+                    <input id="firstN" name="name" type="text">
                     <div id="error-name">
                     </div>
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input id="password" name="name" type="password" value="Тошев">
+                    <input id="password" name="password" type="password">
                     <div id="error-pass">
                     </div>
                 </div>
                 <div>
-                    
+                    <button id="submitButton" type="submit">Submit</button>
                     
                     <h4>Сменете профилната си снимка</h4>
                     <!-- img start  -->
                     <input type="file" accept="image/*" id="uploadImage"><br>
-                    <button onclick="myFunction()">Submit Picture</button><br>
+                    <button onclick="updateProfilePic()">Submit Picture</button><br>
                     <!-- долу на img в src ще ни е дефолтен image -->
                     <img id="imagePreview" src="https://randomuser.me/api/portraits/men/81.jpg"> 
                     <!-- img end  -->
                     <div id="error-pass">
                     </div>
                 </div>
-                    <button id="submitButton" type="submit">Submit</button>
-            </form>
+                    
+            </form> 
+            <h4 id="likedUsersCounter"></h4>
 
 
 
@@ -132,6 +134,9 @@
             </div>
 
 
+        </div>
+        <div id="errorPage">
+            <h1>Error 404 - Wrong URL </h1>
         </div>
 
 

@@ -3,13 +3,20 @@ class User  {
 
 
     constructor() {
-        this.name = ""
-        this.age = ""
+
         this.liked = [] // Първо създаваме двата масива за харесани и за блокирани 
         this.blocked = [] 
+        this.name = "test"
+        this.age = ""
+
+        
     }
 
-
+    countLiked() {
+        console.log(this.liked.length);
+        return this.liked.length
+        
+    }
 
 
 
@@ -43,7 +50,7 @@ class User  {
     unlike(match) {
         let getIndex = this.liked.indexOf(match)
         if (getIndex !== -1) {
-            this.liked.splice(match,1)
+            this.liked.splice(getIndex,1)
         }
          
         
@@ -56,11 +63,15 @@ class User  {
     unblock(match) {
         let getIndex = this.blocked.indexOf(match)
         if (getIndex !== -1) {
-            this.blocked.splice(match,1)
+            this.blocked.splice(getIndex,1)
         }
     }
 
-    
+    updateProfile(name,age) {
+        this.name = name 
+        this.age = age 
+        console.log(this.name, this,age );
+    }
 
     }
 
