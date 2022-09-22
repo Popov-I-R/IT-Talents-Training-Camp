@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">Click</button>
+    <img src="" alt="" id="img1" width="150">
+    <img src="" alt="" id="img2" width="150">
+    <img src="" alt="" id="img3" width="150">
+    <img src="" alt="" id="img4" width="150">
+    <img src="" alt="" id="img5" width="150">
+
+</body>
+<script>
+    document.getElementById("button").addEventListener('click', printImages)
+    function printImages() {
+        let img1 = document.getElementById("img1")
+        let img2 = document.getElementById("img2")
+        let img3 = document.getElementById("img3")
+        let img4 = document.getElementById("img4")
+        let img5 = document.getElementById("img5")
+
+        let requests = [
+            fetch("https://randomfox.ca/floof"),
+            fetch("https://randomfox.ca/floof"),
+            fetch("https://randomfox.ca/floof"),
+            fetch("https://randomfox.ca/floof"),
+            fetch("https://randomfox.ca/floof"),
+        ];
+        Promise.all(requests)
+            .then(resp => Promise.all(resp.map(e => e.json())))
+            .then(data => {
+                img1.src = data[0].image,
+                    img2.src = data[1].image,
+                    img3.src = data[2].image,
+                    img4.src = data[3].image,
+                    img5.src = data[4].image
+            })
+    }
+</script>
+</html>
