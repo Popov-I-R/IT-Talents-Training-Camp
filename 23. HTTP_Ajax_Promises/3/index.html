@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="Click" id="button">
+    <img src="" id="image">
+</body>
+<script>
+        button.addEventListener('click', clicked)
+        function clicked() {
+            let image = document.getElementById("image")
+            let requests = [
+                fetch("https://dog.ceo/api/breeds/image/random"),
+                fetch("https://dog.ceo/api/breeds/image/random"),
+                fetch("https://dog.ceo/api/breeds/image/random"),
+                fetch("https://dog.ceo/api/breeds/image/random"),
+                fetch("https://dog.ceo/api/breeds/image/random")
+            ]
+            Promise.race(requests)
+                .then(resp => resp.json())
+                .then(data => image.src = data.message)
+        }
+</script>
+
+</html>
