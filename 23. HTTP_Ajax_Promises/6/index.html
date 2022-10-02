@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #dataContainer, form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <form>
+         <input type="text" name="" id="inputData" placeholder="Place prefered IP here" required minlength="10"></input>
+         <button type="button" class="btn btn-success" id="button">Click me for IP Info</button>
+    </form>
+    <div id="dataContainer">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Endpoints</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IP Address</td>
+                <td id="ipAdress"></td>
+              </tr>
+              <tr>
+                <td>City</td>
+                <td id="city"></td>
+              </tr>
+              <tr>
+                <td>Region</td>
+                <td id="region"></td>
+              </tr>
+              <tr>
+                <td>Postal Code</td>
+                <td id="postalCode"></td>
+              </tr>
+              <tr>
+                <td>European Union</td>
+                <td id="europeanUnion"></td>
+              </tr>
+              <tr>
+                <td>Latitude / Longitude</td>
+                <td id="latitudeAndLogitude"></td>
+              </tr>
+              <tr>
+                <td>Time Zone</td>
+                <td id="timeZone"></td>
+              </tr>
+              <tr>
+                <td>Calling Code</td>
+                <td id="callingCode"></td>
+              </tr>
+              <tr>
+                <td>Currency</td>
+                <td id="currency"></td>
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td id="languages"></td>
+              </tr>
+              <tr>
+                <td>ASN</td>
+                <td id="asn"></td>
+              </tr>
+              <tr>
+                <td>Org</td>
+                <td id="org"></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js" integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let button = document.getElementById("button");
+        let formInput = document.getElementById("inputData");
+        let dataContainer = document.getElementById("dataContainer");
+
+        let ipAdress = document.getElementById("ipAdress");
+        let userCity = document.getElementById("city");
+        let userRegion = document.getElementById("region");
+        let postalCode = document.getElementById("postalCode");
+        let europeanUnion = document.getElementById("europeanUnion");
+        let latitudeAndLogitude = document.getElementById("latitudeAndLogitude");
+        let timeZone = document.getElementById("timeZone");
+        let userCallingCode = document.getElementById("callingCode");
+        let userLanguages = document.getElementById("languages")
+        let userCurrency = document.getElementById("currency");
+        let userAsn = document.getElementById("asn");
+        let userOrg = document.getElementById("org");
+
+        window.addEventListener("load", getDataOnLoad);
+        button.addEventListener('click', getData);
+
+        function getDataOnLoad () {
+                fetch(`https://ipapi.co/json/`)
+                .then(data => data.json())
+                .then(data => {
+                    let ip = data.ip;
+                    let city = data.city;
+                    let region = data.region;
+                    let postal = data.postal;
+                    let continentCode = data.continent_code;
+                    let latitude = data.latitude;
+                    let longitude = data.longitude;
+                    let timezone = data.timezone;
+                    let countryCallingCode = data.country_calling_code;
+                    let currency = data.currency;
+                    let languages = data.languages;
+                    let asn = data.asn;
+                    let org = data.org;
+                    renderIpInformation(ip,city,region,postal,continentCode,latitude,longitude,timezone,countryCallingCode,currency,languages,asn,org)
+                })
+        }
+
+        function getData () {
+            let userIp = formInput.value;
+            if (userIp.length > 0) {
+                fetch(`https://ipapi.co/${userIp}/json/`)
+                .then(data => data.json())
+                .then(data => {
+                    let ip = data.ip;
+                    let city = data.city;
+                    let region = data.region;
+                    let postal = data.postal;
+                    let continentCode = data.continent_code;
+                    let latitude = data.latitude;
+                    let longitude = data.longitude;
+                    let timezone = data.timezone;
+                    let countryCallingCode = data.country_calling_code;
+                    let currency = data.currency;
+                    let languages = data.languages;
+                    let asn = data.asn;
+                    let org = data.org;
+                    renderIpInformation(ip,city,region,postal,continentCode,latitude,longitude,timezone,countryCallingCode,currency,languages,asn,org);
+                })
+            } 
+        }
+
+        function renderIpInformation (ip,city,region,postal,continentCode,latitude,longitude,timezone,countryCallingCode,currency,languages,asn,org) {
+             ipAdress.innerText = ip;
+             userCity.innerText = city ;
+             userRegion.innerText = region;
+             postalCode.innerText = postal;
+             europeanUnion.innerText = `${continentCode === "EU" ? "true" : "false"}`;
+             latitudeAndLogitude.innerText = `${latitude} / ${longitude}`;
+             timeZone.innerText = timezone;
+             userCallingCode.innerText = countryCallingCode;
+             userCurrency.innerText = currency;
+             userLanguages.innerText = languages;
+             userAsn.innerText = asn;
+             userOrg.innerText = org;
+        }
+    </script>
+</html>
