@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .formWidth {
+            width: 500px;
+            min-width: 120px;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+        
+        #catInfo {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <form class="d-flex formWidth" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search for a bread" aria-label="Search" id="search">
+            </form>
+        </div>
+    </nav>
+    <ul id="breedInformationContainer" class="list-group">
+        </ul>
+    <div id="catInfo">
+        </div>
+</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js" integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    let breedInfoContainer = document.getElementById("breedInformationContainer");
+
+        let search = document.getElementById("search");
+        search.addEventListener("input", getValue);
+        function getValue (e) {
+            let searchedBread = e.target.value; 
+            fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchedBread}`)
+            .then(data => {
+                if (data.ok) {
+                    return data.json()
+                } else {
+                    return null;
+                }
+            })
+            .then(data => {
+                if (data) {
+                    renderResults(data,searchedBread);
+                } else {
+                    console.log(`Error`);
+                }
+            })
+        }
+
+        function renderResults (results,searchedBread){
+            let breedInfoContainer = document.getElementById("breedInformationContainer");
+            breedInfoContainer.innerHTML = "";
+            let catInfo = document.getElementById("catInfo");
+            catInfo.innerHTML = "";
+             
+            if(results.length === 0 && searchedBread.length > 0) {
+                const li = document.createElement("li");
+                li.classList.add("list-group-item");
+                li.innerText = `There are no such results`;
+                breedInfoContainer.append(li);
+            } else {
+                results.forEach(result => {
+                const li = document.createElement("li");
+                li.classList.add("list-group-item");
+                li.classList.add("list-group-item-action");
+                li.innerText = result.name;
+                breedInfoContainer.append(li);
+                showMoreInfo(li,result);
+            })
+            }
+        }
+
+        function showMoreInfo (element,cat) {
+            element.addEventListener('click', function () {
+                document.getElementById("breedInformationContainer").innerHTML = "";
+                document.getElementById("catInfo").innerHTML = `;
+                    Name: <h2>${cat.name}</h2>
+                    Life-span: <h2>${cat.life_span} years</h2>
+                    Wikipedia: <a href="${cat.wikipedia_url}"">More Info</a>;
+                `    
+            })
+        }
+    </script>
+</html>
