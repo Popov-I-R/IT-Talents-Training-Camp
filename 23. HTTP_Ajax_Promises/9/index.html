@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .hideIt{
+            display: none;
+        }
+        .showIt{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <button type="button" class="btn btn-success" id="button">Click</button>
+    <div class="spinner-border text-primary" id="spinner" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="imageContainer">
+        <img src="" alt="" id="image">
+    </div>
+</body> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js" integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+const button = document.getElementById("button");
+const image = document.getElementById("image");
+const spinner = document.getElementById("spinner");
+
+window.addEventListener('load', function(){
+    document.getElementById("spinner").classList.add("hideIt")
+})
+
+button.addEventListener("click", function(){
+    image.classList.remove("showIt")
+    image.classList.add("hideIt")
+    spinner.classList.remove("hideIt");
+    spinner.classList.add("showIt");
+
+    fetch("https://randomfox.ca/floof/")
+    .then(data => data.json())
+    .then(data => {
+            let img = data.image;
+            renderImage(img);
+    })
+    .finally(() => {
+        image.classList.remove("hideIt");
+        image.classList.add("showIt");
+        spinner.classList.remove("showIt");
+        spinner.classList.add("hideIt");
+    })
+})
+
+function renderImage(img){
+    image.src = img;
+}
+</script>
+</html>
