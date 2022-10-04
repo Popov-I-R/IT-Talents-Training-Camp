@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body {
+        width: auto;
+        line-height: 1.7;
+        font-size: 1.1rem;
+        margin: 0;
+        color: #27253d;
+        background: #e6f3f8;
+      }
+
+      #paginatedTable{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      main {
+        position: relative;
+        padding: 1rem 1rem 3rem;
+
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .pagination-container {
+        width: calc(100% - 2rem);
+        display: flex;
+        align-items: center;
+        position: absolute;
+        padding: 1rem 0;
+        justify-content: center;
+      }
+
+      .pagination-number,
+      .pagination-button{
+        font-size: 1.1rem;
+        background-color: transparent;
+        border: none;
+        margin: 0.25rem 0.25rem;
+        cursor: pointer;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: .2rem;
+      }
+
+      .pagination-number:hover,
+      .pagination-button:not(.disabled):hover {
+        background: #fff;
+      }
+
+      .pagination-button {
+        background-color: red;
+      }
+      .pagination-number.active {
+        color: #fff;
+        background: #0085b6;
+      }
+    </style>
+</head>
+<body>
+    <select id="select">
+        <option selected value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select>
+    <main>
+        <table id="paginatedTable">
+          </table>
+        <nav class="pagination-container">
+          <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
+            &lt;
+          </button>
+          <div id="pagination-numbers">
+          </div>
+          <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
+            &gt;
+          </button>
+        </nav>
+      </main>
+</body>
+<script>
+let paginationLimit = document.getElementById("select").value;
+let currentPage = 1;
+let pageCount = Math.ceil(8370 / paginationLimit);
+let select = document.getElementById("select");
+select.addEventListener('change', function(e){
+    document.getElementById("paginatedTable").innerHTML = "";
+    paginationLimit = e.target.value;
+    pageCount = Math.ceil(8370 / paginationLimit);
+    giveMePages(pageCount);
+    fetchData(paginationLimit,currentPage,pageCount);
+})
+
+let paginationNumbers = document.getElementById("pagination-numbers");
+let paginatedList = document.getElementById("paginatedTable");
+let listItems = paginatedList.querySelectorAll("tr");
+let nextButton = document.getElementById("next-button");
+let prevButton = document.getElementById("prev-button");
+
+function fetchData (paginationLimit,pageCount){
+    fetch(`https://api.thecatapi.com/v1/images/search?limit=${paginationLimit}&page=${currentPage-1}&order=Desc`, {
+            method: "GET",
+            headers: {
+                "Content-Type": 'application/json',
+                "x-api-key": 'live_awD41wB9j1L1EJ3ByYH2ilVU0icOpM6IQIrDTeC48TyNNAsjWR8mu83fZS6YmVL4',
+            }
+        })
+        .then(data => {
+             let paginationCount = parseFloat(data.headers.get('pagination-count'))
+             document.getElementById("paginatedTable").innerHTML = ""
+            // pageCount = Math.ceil(listItems.length / paginationLimit); 
+            // giveMePages(pageCount);
+             return data;
+        })
+        .then(data => data.json())
+        .then(data => {
+            data.forEach(e => {
+                let height = e.height;
+                let id = e.id;
+                let imageLink = e.url;
+                let width = e.width;
+                renderObject(height,id,imageLink,width);
+            })
+        })
+    }
+
+    function renderObject(height,id,imageLink,width) {
+        let myTable = document.getElementById("paginatedTable");
+        let row = document.createElement("tr");
+        let tdId = document.createElement("td");
+        tdId.innerText = `ID : ${id}`
+
+        let tdImage = document.createElement("td");
+        let imageSrc = document.createElement("img");
+        imageSrc.setAttribute("src", `${imageLink}`);
+        imageSrc.setAttribute("width", `150px`);
+        imageSrc.setAttribute("height", `60px`);
+        tdImage.append(imageSrc);
+
+        let tdHeight = document.createElement("td");
+        tdHeight.innerText = `${height} x`
+
+        let tdWidth = document.createElement("td");
+        tdWidth.innerText = width;
+
+        row.append(tdId,tdImage,tdHeight,tdWidth);
+        myTable.append(row);
+    }
+
+const disableButton = (button) => {
+  button.classList.add("disabled");
+  button.setAttribute("disabled", true);
+};
+
+const enableButton = (button) => {
+  button.classList.remove("disabled");
+  button.removeAttribute("disabled");
+};
+
+const handlePageButtonsStatus = () => {
+  if (currentPage === 1) {
+    disableButton(prevButton);
+  } else {
+    enableButton(prevButton);
+  }
+
+  if (pageCount === currentPage) {
+    disableButton(nextButton);
+  } else {
+    enableButton(nextButton);
+  }
+};
+
+const handleActivePageNumber = () => {
+  document.querySelectorAll(".pagination-number").forEach((button) => {
+    button.classList.remove("active");
+    const pageIndex = Number(button.getAttribute("page-index"));
+    if (pageIndex == currentPage) {
+     fetchData(paginationLimit,currentPage);
+      button.classList.add("active");
+    }
+  });
+};
+
+const appendPageNumber = (index) => {
+  const pageNumber = document.createElement("button");
+  pageNumber.className = "pagination-number";
+  pageNumber.innerHTML = index;
+  pageNumber.setAttribute("page-index", index);
+
+  paginationNumbers.appendChild(pageNumber);
+};
+
+const getPaginationNumbers = () => {
+  for (let i = 1; i <= pageCount; i++) {
+    appendPageNumber(i);
+  }
+};
+
+const setCurrentPage = (pageNum) => {
+  currentPage = pageNum;
+  handleActivePageNumber();
+  handlePageButtonsStatus();
+  
+  const prevRange = (pageNum - 1) * paginationLimit;
+  const currRange = pageNum * paginationLimit;
+
+  listItems.forEach((item, index) => {
+    item.classList.add("hidden");
+    if (index >= prevRange && index < currRange) {
+      item.classList.remove("hidden");
+    }
+  });
+};
+
+(function () {
+  getPaginationNumbers();
+  setCurrentPage(1);
+
+  prevButton.addEventListener("click", () => {
+    setCurrentPage(currentPage - 1);
+  });
+
+  nextButton.addEventListener("click", () => {
+    setCurrentPage(currentPage + 1);
+  });
+
+  document.querySelectorAll(".pagination-number").forEach((button) => {
+    const pageIndex = Number(button.getAttribute("page-index"));
+
+    if (pageIndex) {
+      button.addEventListener("click", () => {
+        setCurrentPage(pageIndex);
+      });
+    }
+  });
+})()
+
+function giveMePages (count){
+  document.getElementById("pagination-numbers").innerHTML = "";
+  let pageCount = count;
+  getPaginationNumbers();
+  setCurrentPage(1);
+
+  document.querySelectorAll(".pagination-number").forEach((button) => {
+    const pageIndex = Number(button.getAttribute("page-index"));
+
+    if (pageIndex) {
+      button.addEventListener("click", () => {
+        setCurrentPage(pageIndex);
+      });
+    }
+  });
+}
+</script>
+</html>
