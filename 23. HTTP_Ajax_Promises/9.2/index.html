@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #all-pages {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .hideIt {
+            display: none;
+        }
+        .showIt{
+            display: flex;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-6">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
+          </form>
+    </div>
+    <div class="list-group col-6" id="results">
+      </div>
+      <main id="body">
+        <div class="row row-cols-4 movies gx-5 g-2 p-6" id="movies">
+        </div>
+        <div class="pagination-container">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" id="prevButton">
+              <a class="page-link" href="#" id="buttonPrevious">Previous</a>
+            </li>
+            <ul class="pagination justify-content-center" id="all-pages">
+            </ul>
+            <li class="page-item" id="nextButton">
+              <a class="page-link" href="#" id="buttonNext">Next</a>
+            </li>
+          </ul>
+      </div>
+      </main>
+</body>
+<script src="hideAndShowSearchFieldEvents.js"></script>
+<script src="nextAndPrevButtons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js" integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const apiKey = "8bfa4bf9";
+    let moviesDiv = document.getElementById("movies");
+    let resultsDiv = document.getElementById("results");
+    let searchField = document.getElementById("searchField");
+    let allPagesContainer = document.getElementById("all-pages");
+    let totalResults;
+
+    searchField.addEventListener('input', function(e){
+        allPagesContainer.innerHTML = "";
+        moviesDiv.innerHTML = "";
+        resultsDiv.innerHTML = "";
+        let text = e.target.value.trim();
+        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${text}`)
+        .then(res => res.json())
+        .then(data => {
+            resultsDiv.innerHTML = "";
+            if (e.target.value.length == 0) {
+                return
+            }
+            if (data.hasOwnProperty("Error")) {
+                let h2 = document.createElement("h2")
+                h2.innerText = "Too Many Results / Movie Not Found!";
+                resultsDiv.append(h2);
+        } else {
+                resultsDiv.innerHTML = "";
+                moviesDiv.innerHTML = "";
+                totalResults = data.totalResults;
+
+                renderPages(totalResults,1)
+                data.Search.forEach(e => {
+                    renderMovies(e);
+                    let button = document.createElement("button");
+                    button.setAttribute("type", "button");
+                    button.classList.add("list-group-item");
+                    button.classList.add("list-group-item-action");
+                    button.innerText = e.Title;
+                    resultsDiv.append(button);
+                })
+            }
+        })
+    })
+
+    function makeNewReqOnPageChange(text,page){
+        moviesDiv.innerHTML = "";
+        resultsDiv.innerHTML = "";
+        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${text}&page=${page}`)
+        .then(res => res.json())
+        .then(data => {
+            resultsDiv.innerHTML = "";
+            console.log(data);
+            if (text == 0) {
+                return
+            }
+            if (data.hasOwnProperty("Error")) {
+                let h2 = document.createElement("h2");
+                h2.innerText = "Too Many Results / Movie Not Found!";
+                resultsDiv.append(h2);
+        } else {
+                resultsDiv.innerHTML = "";
+                moviesDiv.innerHTML = "";
+                totalResults = data.totalResults;
+                renderPages(totalResults,page);
+
+                data.Search.forEach(e => {
+                    renderMovies(e)
+                    let button = document.createElement("button")
+                    button.setAttribute("type", "button")
+                    button.classList.add("list-group-item")
+                    button.classList.add("list-group-item-action")
+                    button.innerText = e.Title;
+                    resultsDiv.append(button);
+                })
+            }
+        })
+    }
+
+    function renderMovies(movies) {
+        let div = document.createElement("div");
+        div.classList.add("card");
+        div.classList.add("col-3")
+        div.classList.add("gy-3"); 
+
+        div.innerHTML = `
+        <img src=${movies.Poster} class="card-img-top" alt="image">
+        <div class="card-body">
+            <h5 class="card-title">${movies.Title}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">IMDB: ${movies.imdbID}</li>
+            <li class="list-group-item">Year: ${movies.Year}</li>
+            <li class="list-group-item">Type: ${movies.Type}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Like</a>
+            <a href="#" class="card-link">Add to Favourites</a>
+        </div>
+        `
+        moviesDiv.append(div);
+    }
+
+    function renderPages(resultsCount,page) {
+        allPagesContainer.innerHTML = "";
+
+        disablePreviousButtonIfUserIsOnFirstPage(page);
+
+        let totalResults = resultsCount;
+        let totalPages = Math.ceil(totalResults / 10);
+
+        disableNextButtonIfUserIsOnLastPage(page,totalPages);
+
+        let arrOfPages = [];
+
+        for (let i = 1; i <= totalPages; i++) {
+            arrOfPages.push(i);
+            let li = document.createElement("li");
+            li.classList.add("page-item");
+            li.id = i;
+            if (li.id == page) {
+
+                li.classList.add("active");
+            }
+            li.addEventListener('click', function (e) {
+                e.preventDefault();
+                let text = searchField.value;
+                let page = e.target.innerText;
+
+                makeNewReqOnPageChange(text,page)
+            })
+            let a = document.createElement("a");
+            a.classList.add("page-link");
+            a.setAttribute("href", "#");
+            a.innerHTML = i;
+            li.append(a);
+            
+            allPagesContainer.append(li);
+        }
+    }
+</script>
+</html>
